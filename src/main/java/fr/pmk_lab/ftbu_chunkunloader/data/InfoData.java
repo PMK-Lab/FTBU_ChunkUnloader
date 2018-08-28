@@ -3,6 +3,8 @@ package fr.pmk_lab.ftbu_chunkunloader.data;
 import java.io.InputStream;
 import java.util.Properties;
 
+import fr.pmk_lab.ftbu_chunkunloader.MainCU;
+
 public class InfoData {
 
 	public static final String INFO_FILE_NAME = "info.properties";
@@ -11,7 +13,7 @@ public class InfoData {
 		
 		try {
 			
-			InputStream inputStream = ClassLoader.getSystemResourceAsStream(INFO_FILE_NAME);
+			InputStream inputStream = MainCU.class.getClassLoader().getResourceAsStream(INFO_FILE_NAME);
 			Properties props = new Properties();
 			
 			props.load(inputStream);
