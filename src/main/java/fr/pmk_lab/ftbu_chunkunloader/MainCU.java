@@ -1,5 +1,6 @@
 package fr.pmk_lab.ftbu_chunkunloader;
 
+import java.io.File;
 import java.io.IOException;
 
 import fr.pmk_lab.ftbu_chunkunloader.config.ResourceManager;
@@ -30,6 +31,8 @@ public class MainCU {
 				
 				
 				
+				NBTCompound nbt = getNBTFile("world/level.dat");
+				
 				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -46,6 +49,20 @@ public class MainCU {
 		}
 		
 	}
+	
+	private static NBTCompound getNBTFile(String p) {
+		
+		try {
+			return NBTReader.read(new File(p));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+		
+	}
+	
 
 	public static InfoData getINFO() {
 		return INFO;
