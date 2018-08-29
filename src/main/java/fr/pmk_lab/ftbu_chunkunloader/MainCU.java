@@ -49,6 +49,8 @@ public class MainCU {
 			e.printStackTrace();
 		}
 		
+		ChunkUnloaderManager.runUnload();
+		
 	}
 	
 
