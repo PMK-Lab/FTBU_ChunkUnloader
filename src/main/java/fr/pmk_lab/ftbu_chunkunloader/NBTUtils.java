@@ -2,6 +2,8 @@ package fr.pmk_lab.ftbu_chunkunloader;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.kovuthehusky.nbt.NBTReader;
 import com.kovuthehusky.nbt.tags.NBTCompound;
@@ -19,6 +21,26 @@ public class NBTUtils {
 		NBTLong nbtL = nbt.get("DayTime");
 		
 		return nbtL.getPayload();
+		
+	}
+	
+	public static List<NBTCompound> getNBTList(List<File> lf){
+		
+		List<NBTCompound> list = new ArrayList<NBTCompound>();
+		
+		for (File file : lf) {
+		
+			try {
+				list.add(NBTReader.read(file));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				System.out.println("Erreur de récupération NBTCompound instance : " + file.getName());
+				e.printStackTrace();
+			}
+			
+		}
+		
+		return list;
 		
 	}
 	
