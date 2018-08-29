@@ -1,10 +1,6 @@
 package fr.pmk_lab.ftbu_chunkunloader;
 
-import java.io.File;
 import java.io.IOException;
-
-import com.kovuthehusky.nbt.NBTReader;
-import com.kovuthehusky.nbt.tags.NBTCompound;
 
 import fr.pmk_lab.ftbu_chunkunloader.config.ResourceManager;
 import fr.pmk_lab.ftbu_chunkunloader.data.InfoData;
@@ -27,42 +23,31 @@ public class MainCU {
 			// génération du fichier de config
 			ResourceManager.extract(PropertiesData.PROPERTIES_FILE_NAME);
 			
-			try {
-				
-				//récupération des propriétés dans le fichier de config
-				PROPERTIES = PropertiesData.getPropertiesData();
-				
-				
-				
-				NBTCompound nbt = getNBTFile("world/level.dat");
-				
-				
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				System.out.println("Erreur de récupération des configurations ! EXIT");
-				System.exit(0);
-			}
-			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
 			System.out.println("Erreur d'extractions et de créations du fichier de configuration ! EXIT");
+			e.printStackTrace();
 			System.exit(0);
 		}
 		
-	}
-	
-	private static NBTCompound getNBTFile(String p) {
+		try {
+			
+			//récupération des propriétés dans le fichier de config
+			PROPERTIES = PropertiesData.getPropertiesData();			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("Erreur de récupération des configurations ! EXIT");
+			e.printStackTrace();
+			System.exit(0);
+		}
 		
 		try {
-			return NBTReader.read(new File(p));
-		} catch (IOException e) {
+			ChunkUnloaderManager.setWorldDayTime(ChunkUnloaderManager.getWorldDayTime(PROPERTIES));
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		return null;
 		
 	}
 	
