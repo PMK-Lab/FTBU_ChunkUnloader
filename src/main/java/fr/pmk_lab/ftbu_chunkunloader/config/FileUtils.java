@@ -1,12 +1,18 @@
 package fr.pmk_lab.ftbu_chunkunloader.config;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class FileUtils {
 
-	public List<String> getListFile(){
+	public List<File> getListFiles(String path){
 		
-		return null;
+		File f = new File(path);
+		ArrayList<File> files = new ArrayList<File>(Arrays.asList(f.listFiles()));
+		
+		return files;
 		
 	}
 	
