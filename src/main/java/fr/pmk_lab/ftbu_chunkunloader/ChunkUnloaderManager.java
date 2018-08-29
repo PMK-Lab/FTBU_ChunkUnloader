@@ -1,8 +1,11 @@
 package fr.pmk_lab.ftbu_chunkunloader;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import fr.pmk_lab.ftbu_chunkunloader.data.PropertiesData;
+import fr.pmk_lab.ftbu_chunkunloader.data.TeamData;
 
 public class ChunkUnloaderManager {
 
@@ -25,6 +28,20 @@ public class ChunkUnloaderManager {
 		}
 		
 	}
+	
+	private static List<TeamData> getTeamList() {
+		
+		List<TeamData> teamList = new ArrayList<TeamData>();
+		
+		for (TeamData teamData : teamList) {
+			
+			
+			
+		}
+		
+		return teamList;
+		
+	}
 
 	public static long getWorldDayTime() {
 		return worldDayTime;
@@ -32,6 +49,13 @@ public class ChunkUnloaderManager {
 
 	public static void setWorldDayTime(long worldDayTime) {
 		ChunkUnloaderManager.worldDayTime = worldDayTime;
+	}
+
+	public static void runUnload() {
+		// TODO Auto-generated method stub
+		
+		List<TeamData> teamList =  getTeamList();
+		
 	}
 	
 }
