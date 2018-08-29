@@ -1,9 +1,9 @@
 package fr.pmk_lab.ftbu_chunkunloader.data;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Properties;
-
-import fr.pmk_lab.ftbu_chunkunloader.MainCU;
 
 public class PropertiesData {
 
@@ -11,7 +11,7 @@ public class PropertiesData {
 	
 	public static PropertiesData getPropertiesData() throws Exception {
 			
-		InputStream inputStream = MainCU.class.getClassLoader().getResourceAsStream(PROPERTIES_FILE_NAME);
+		InputStream inputStream = new FileInputStream(new File(PROPERTIES_FILE_NAME));
 		Properties props = new Properties();
 			
 		props.load(inputStream);
@@ -19,13 +19,11 @@ public class PropertiesData {
 		// get information in file info.properties
 		int cycle = Integer.parseInt(props.getProperty("cycle"));
 		
-		String wolrdName = props.getProperty("version");
+		String wolrdName = props.getProperty("world_name");
 		
-		String libPath = props.getProperty("support");
-		String player = props.getProperty("forge_version_use_to_dev");
-		String team = props.getProperty("ftb_version_use_to_dev");
-			
-		//System.out.println(version + "\n" + support + "\n" + forge + "\n" + ftb);
+		String libPath = props.getProperty("ftb_lib_path");
+		String player = props.getProperty("player_path");
+		String team = props.getProperty("team_path");
 			
 		return new PropertiesData(cycle, wolrdName, libPath, player, team);
 		

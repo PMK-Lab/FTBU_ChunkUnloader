@@ -24,8 +24,6 @@ public class InfoData {
 			String forge = props.getProperty("forge_version_use_to_dev");
 			String ftb = props.getProperty("ftb_version_use_to_dev");
 			
-			System.out.println(version + "\n" + support + "\n" + forge + "\n" + ftb);
-			
 			return new InfoData(version, support, forge, ftb);
 			
 		} catch (Exception e) {
@@ -69,6 +67,19 @@ public class InfoData {
 
 	public String getFtbVersion() {
 		return FtbVersion;
+	}
+	
+	public String toString() {
+		
+		String str = "";
+		
+		str += "Version du logiciel : " + version + "\n";
+		str += "Version forge : " + forgeVersion + "\n";
+		str += "Version ftb_u : " + FtbVersion + "\n";
+		str += "Lien pour support : " + supportLink + "\n";
+		
+		return str;
+		
 	}
 	
 }
