@@ -18,7 +18,7 @@ public class ResourceManager {
     	if(!f.exists()) {
     		System.out.print("...Exist:NO ");
     		Files.copy(MainCU.class.getClassLoader().getResourceAsStream(jarFilePath), f.toPath() , StandardCopyOption.REPLACE_EXISTING);
-    		System.out.print("...Copy:OK ....END");
+    		System.out.println("...Copy:OK ....END");
     	}else {
     		System.out.println("...Exist:OK ....END");
     	}
