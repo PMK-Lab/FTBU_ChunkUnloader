@@ -3,6 +3,9 @@ package fr.pmk_lab.ftbu_chunkunloader;
 import java.io.File;
 import java.io.IOException;
 
+import com.kovuthehusky.nbt.NBTReader;
+import com.kovuthehusky.nbt.tags.NBTCompound;
+
 import fr.pmk_lab.ftbu_chunkunloader.config.ResourceManager;
 import fr.pmk_lab.ftbu_chunkunloader.data.InfoData;
 import fr.pmk_lab.ftbu_chunkunloader.data.PropertiesData;
