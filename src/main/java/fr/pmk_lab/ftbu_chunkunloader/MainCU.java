@@ -20,12 +20,16 @@ public class MainCU {
 		System.out.print(INFO.toString());
 		
 		try {
-			
+			// génération du fichier de config
 			ResourceManager.extract(PropertiesData.PROPERTIES_FILE_NAME);
 			
 			try {
 				
+				//récupération des propriétés dans le fichier de config
 				PROPERTIES = PropertiesData.getPropertiesData();
+				
+				
+				
 				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -37,6 +41,8 @@ public class MainCU {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			System.out.println("Erreur d'extractions et de créations du fichier de configuration ! EXIT");
+			System.exit(0);
 		}
 		
 	}
