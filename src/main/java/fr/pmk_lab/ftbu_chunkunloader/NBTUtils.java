@@ -33,7 +33,7 @@ public class NBTUtils {
 			try {
 				
 				NBTCompound nbt = NBTReader.read(file);
-				nbt.setName(file.getName());
+				nbt.setName(file.getName().split(".dat")[0]);
 				
 				list.add(nbt);
 				
