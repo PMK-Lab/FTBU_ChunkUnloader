@@ -1,8 +1,12 @@
 package fr.pmk_lab.ftbu_chunkunloader.data;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
 
 import com.kovuthehusky.nbt.tags.NBTCompound;
+
+import fr.pmk_lab.ftbu_chunkunloader.ChunkUnloaderManager;
 
 public class TeamData {
 
@@ -13,7 +17,6 @@ public class TeamData {
 	private String teamName;
 	
 	private PlayerData owner;
-	private List<PlayerData> players;	
 	
 	public TeamData(NBTCompound nbt) {
 		// TODO Auto-generated constructor stub
@@ -34,8 +37,7 @@ public class TeamData {
 		}
 		
 		//récupération du nom du propiétaire
-		
-		//owner = NBTUtils.getNbtFromFile(f)
+		owner = ChunkUnloaderManager.getPlayers().get((String) nbt.get("Owner").getPayload());
 		
 	}
 
@@ -45,6 +47,30 @@ public class TeamData {
 
 	public void setFileNbt(NBTCompound fileNbt) {
 		this.fileNbt = fileNbt;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	public String getTeamName() {
+		return teamName;
+	}
+
+	public void setTeamName(String teamName) {
+		this.teamName = teamName;
+	}
+
+	public PlayerData getOwner() {
+		return owner;
+	}
+
+	public void setOwner(PlayerData owner) {
+		this.owner = owner;
 	}
 
 }
