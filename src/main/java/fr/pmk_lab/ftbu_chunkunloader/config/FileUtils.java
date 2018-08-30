@@ -7,9 +7,10 @@ import java.util.List;
 
 public class FileUtils {
 
-	public List<File> getListFiles(String path){
+	public static List<File> getListFiles(String path){
 		
 		File f = new File(path);
+		
 		ArrayList<File> files = new ArrayList<File>(Arrays.asList(f.listFiles()));
 		
 		return files;
