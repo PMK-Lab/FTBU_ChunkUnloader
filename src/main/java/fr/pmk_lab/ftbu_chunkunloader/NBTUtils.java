@@ -18,7 +18,7 @@ public class NBTUtils {
 		nbt = nbt.get("Data");
 		nbt = new NBTCompound("Data", nbt.getPayload());
 		
-		NBTLong nbtL = nbt.get("DayTime");
+		NBTLong nbtL = nbt.get("Time");
 		
 		return nbtL.getPayload();
 		
