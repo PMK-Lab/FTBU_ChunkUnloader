@@ -4,6 +4,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.kovuthehusky.nbt.tags.NBTCompound;
+
+import fr.pmk_lab.ftbu_chunkunloader.config.FileUtils;
 import fr.pmk_lab.ftbu_chunkunloader.data.PropertiesData;
 import fr.pmk_lab.ftbu_chunkunloader.data.TeamData;
 
@@ -29,13 +32,19 @@ public class ChunkUnloaderManager {
 		
 	}
 	
-	private static List<TeamData> getTeamList() {
+	private static List<TeamData> getTeamList(PropertiesData p) {
 		
 		List<TeamData> teamList = new ArrayList<TeamData>();
 		
-		for (TeamData teamData : teamList) {
+		String path = p.getWorld() + "/" + p.getFtbLibPath() + p.getTeamPath();
+		
+		List<NBTCompound> nbtList = NBTUtils.getNBTList(FileUtils.getListFiles(path));
+		
+		for (NBTCompound nbt : nbtList) {
 			
+			TeamData team = new TeamData(nbt);
 			
+			teamList.add(team);
 			
 		}
 		
@@ -54,7 +63,7 @@ public class ChunkUnloaderManager {
 	public static void runUnload() {
 		// TODO Auto-generated method stub
 		
-		List<TeamData> teamList =  getTeamList();
+		List<TeamData> teamList =  getTeamList(MainCU.getPROPERTIES());
 		
 	}
 	
