@@ -31,7 +31,12 @@ public class NBTUtils {
 		for (File file : lf) {
 		
 			try {
-				list.add(NBTReader.read(file));
+				
+				NBTCompound nbt = NBTReader.read(file);
+				nbt.setName(file.getName());
+				
+				list.add(nbt);
+				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				System.out.println("Erreur de récupération NBTCompound instance : " + file.getName());
