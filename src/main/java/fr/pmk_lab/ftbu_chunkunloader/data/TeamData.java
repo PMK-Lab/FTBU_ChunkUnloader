@@ -80,7 +80,7 @@ public class TeamData {
 		nbt = new NBTCompound("ClaimedChunks", nbt.get("ClaimedChunks"));
 		System.out.println(nbt);
 		
-		for (NBT<?> nbt2 : nbt.getPayload()) {
+		for (NBT<?> nbt2 : nbt) {
 			
 			NBTList nbt3 = (NBTList) nbt2;
 			
@@ -100,6 +100,8 @@ public class TeamData {
 					nbt5.add(nbt6);
 					
 				}
+				
+				nbt3.add(nbt5);
 				
 			}
 			
