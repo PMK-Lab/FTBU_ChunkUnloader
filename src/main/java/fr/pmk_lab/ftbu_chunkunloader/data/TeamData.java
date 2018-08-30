@@ -1,10 +1,9 @@
 package fr.pmk_lab.ftbu_chunkunloader.data;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map.Entry;
-
+import com.kovuthehusky.nbt.tags.NBT;
+import com.kovuthehusky.nbt.tags.NBTByte;
 import com.kovuthehusky.nbt.tags.NBTCompound;
+import com.kovuthehusky.nbt.tags.NBTList;
 
 import fr.pmk_lab.ftbu_chunkunloader.ChunkUnloaderManager;
 
@@ -71,6 +70,51 @@ public class TeamData {
 
 	public void setOwner(PlayerData owner) {
 		this.owner = owner;
+	}
+
+	public void unloadChunks() {
+		// TODO Auto-generated method stub
+		
+		NBTCompound nbt = fileNbt.get("Data");
+		nbt = new NBTCompound("ftbutilities", nbt.get("ftbutilities"));
+		nbt = new NBTCompound("ClaimedChunks", nbt.get("ClaimedChunks"));
+		System.out.println(nbt);
+		
+		for (NBT<?> nbt2 : nbt.getPayload()) {
+			
+			NBTList nbt3 = (NBTList) nbt2;
+			
+			System.out.println(nbt3);
+			
+			for ( NBT<?> nbt4 : nbt3) {
+				
+				NBTCompound nbt5 = (NBTCompound) nbt4;
+				System.out.println(nbt5);
+				
+				NBTByte nbt6 = nbt5.get("loaded");
+				
+				if(nbt6 != null) {
+					
+					System.out.println(nbt6);
+					nbt6.setPayload((byte) 0);
+					nbt5.add(nbt6);
+					
+				}
+				
+			}
+			
+			
+			
+		}
+		
+		//System.out.println(nbt);
+		
+		
+		
+		//nbt = new NBTCompound("", nbt.getPayload());
+		//System.out.println(nbt);
+		
+		//new NBTCompound("", new NBTCompound("Data", fileNbt.get("Data")).get(""));		
 	}
 
 }
