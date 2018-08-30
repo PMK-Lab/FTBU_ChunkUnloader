@@ -43,7 +43,7 @@ public class MainCU {
 		}
 		
 		try {
-			ChunkUnloaderManager.setWorldDayTime(ChunkUnloaderManager.getWorldDayTime(PROPERTIES));
+			ChunkUnloaderManager.setWorldTime(ChunkUnloaderManager.getWorldTime(PROPERTIES));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
