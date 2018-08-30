@@ -2,19 +2,23 @@ package fr.pmk_lab.ftbu_chunkunloader;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.kovuthehusky.nbt.tags.NBTCompound;
 
 import fr.pmk_lab.ftbu_chunkunloader.config.FileUtils;
+import fr.pmk_lab.ftbu_chunkunloader.data.PlayerData;
 import fr.pmk_lab.ftbu_chunkunloader.data.PropertiesData;
 import fr.pmk_lab.ftbu_chunkunloader.data.TeamData;
 
 public class ChunkUnloaderManager {
 
-	private static long worldDayTime;
+	private static long worldTime;
 	
-	public static long getWorldDayTime(PropertiesData p) throws Exception {
+	private static HashMap<String,PlayerData> players;
+	
+	public static long getWorldTime(PropertiesData p) throws Exception {
 		
 		String pathFile = p.getWorld() + "/level.dat";
 		
@@ -29,6 +33,26 @@ public class ChunkUnloaderManager {
 			throw new Exception("Fichier non trouvé : " + pathFile + "\n Impossible de récupérer les informations neccésaires au unload.");
 			
 		}
+		
+	}
+	
+	private static HashMap<String,PlayerData> getPlayerList(PropertiesData p){
+		
+		HashMap<String,PlayerData> playerList = new HashMap<String,PlayerData>();
+		
+		String path = p.getWorld() + "/" + p.getFtbLibPath() + p.getPlayerPath();
+		
+		List<NBTCompound> nbtList = NBTUtils.getNBTList(FileUtils.getListFiles(path));
+		
+		for (NBTCompound nbt : nbtList) {
+			
+			PlayerData player = new PlayerData(nbt);
+			
+			playerList.put(player.getName(),player);
+			
+		}
+		
+		return playerList;
 		
 	}
 	
@@ -52,19 +76,44 @@ public class ChunkUnloaderManager {
 		
 	}
 
-	public static long getWorldDayTime() {
-		return worldDayTime;
+	public static long getWorldTime() {
+		return worldTime;
 	}
 
-	public static void setWorldDayTime(long worldDayTime) {
-		ChunkUnloaderManager.worldDayTime = worldDayTime;
+	public static void setWorldTime(long worldDayTime) {
+		ChunkUnloaderManager.worldTime = worldDayTime;
 	}
 
 	public static void runUnload() {
 		// TODO Auto-generated method stub
 		
-		List<TeamData> teamList =  getTeamList(MainCU.getPROPERTIES());
+		PropertiesData p = MainCU.getPROPERTIES();
 		
+		players = getPlayerList(p);
+		
+		List<TeamData> teamList =  getTeamList(p);
+		
+		for (TeamData teamData : teamList) {
+			
+			long time = ChunkUnloaderManager.getWorldTime() - teamData.getOwner().getLastTimeSeen();
+			System.out.println(time);
+			
+			if(time > 144000) {
+				
+				//unload
+				System.out.println("unload");
+				
+				teamData.unloadChunks();
+				
+				
+			}
+			
+		}
+		
+	}
+
+	public static HashMap<String,PlayerData> getPlayers() {
+		return players;
 	}
 	
 }
