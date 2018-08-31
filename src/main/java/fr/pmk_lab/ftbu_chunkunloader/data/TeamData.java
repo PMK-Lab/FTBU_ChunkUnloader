@@ -1,11 +1,19 @@
 package fr.pmk_lab.ftbu_chunkunloader.data;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ListIterator;
+
+import javax.swing.text.html.HTMLDocument.Iterator;
+
+import com.kovuthehusky.nbt.NBTWriter;
 import com.kovuthehusky.nbt.tags.NBT;
 import com.kovuthehusky.nbt.tags.NBTByte;
 import com.kovuthehusky.nbt.tags.NBTCompound;
 import com.kovuthehusky.nbt.tags.NBTList;
 
 import fr.pmk_lab.ftbu_chunkunloader.ChunkUnloaderManager;
+import fr.pmk_lab.ftbu_chunkunloader.MainCU;
 
 public class TeamData {
 
@@ -72,24 +80,97 @@ public class TeamData {
 		this.owner = owner;
 	}
 
-	public void unloadChunks() {
+	public void unloadChunks() throws FileNotFoundException {
 		// TODO Auto-generated method stub
 		
-		NBTCompound nbt = fileNbt.get("Data");
-		nbt = new NBTCompound("ftbutilities", nbt.get("ftbutilities"));
-		nbt = new NBTCompound("ClaimedChunks", nbt.get("ClaimedChunks"));
-		System.out.println(nbt);
+		NBTCompound nbtData = fileNbt.get("Data");
 		
-		for (NBT<?> nbt2 : nbt) {
+		NBTCompound nbtFTB = new NBTCompound("ftbutilities", nbtData.get("ftbutilities"));
+		
+		NBTCompound nbtClaimedChunks = new NBTCompound("ClaimedChunks", nbtFTB.get("ClaimedChunks"));
+		
+		for (ListIterator<NBT<?>> it = nbtClaimedChunks.listIterator(); it.hasNext();) {
+		
+			NBTList nbtList = (NBTList) it.next();
+			System.out.println(nbtList);
 			
-			NBTList nbt3 = (NBTList) nbt2;
+			for (ListIterator<NBT<?>> it1 = nbtList.listIterator(); it1.hasNext();) {
+				
+				NBTCompound nbtChunk = (NBTCompound) it1.next();
+				System.out.println("\t" + nbtChunk);
+				
+				NBTByte loaded = nbtChunk.get("loaded");
+				
+				
+				
+				if(loaded != null) {
+					System.out.println("\t\t loaded");
+					loaded.setPayload((byte) 0);
+					it1.set(nbtChunk);
+				}
+				
+				
+			}
 			
-			System.out.println(nbt3);
+			it.set(nbtList);
+			
+		}
+		
+		nbtFTB.add(nbtClaimedChunks);
+		
+		nbtData.add(nbtFTB);
+		
+		fileNbt.add(nbtData);
+		
+		PropertiesData p = MainCU.getPROPERTIES();
+		
+		String path = p.getWorld() + "/" + p.getFtbLibPath() + p.getTeamPath() + "/" + fileName + ".dat";
+		
+		System.out.println(path);
+		
+		File f = new File(path);
+		
+		NBTWriter.writeNBT(fileNbt, f);
+		
+	}
+
+}
+			/*if(nbt1 instanceof NBTList) {
+				
+				nbtClaimedChunks.remove(nbt1);
+				System.out.println("suppression " + nbt1.getName());
+				
+				NBTList nbtList = (NBTList) nbt1;	
+				System.out.println(nbtList);
+				
+				for (NBT<?> nbt2 : nbtList) {
+					
+					if(nbt2 instanceof NBTCompound) {
+						
+						nbtList.remove(nbt2);
+						
+						NBTCompound nbtChunk = (NBTCompound) nbt2;
+						System.out.println(nbtChunk);
+						nbtChunk.add(new NBTByte("loaded", (byte) 0 ));
+						
+						nbtList.add(nbtChunk);
+						
+					}
+					
+					
+				}
+				
+				nbtClaimedChunks.add(nbtList);
+				System.out.println("ajout " + nbtList.getName());
+				
+				
+			}
+			
+/*
 			
 			for ( NBT<?> nbt4 : nbt3) {
 				
 				NBTCompound nbt5 = (NBTCompound) nbt4;
-				System.out.println(nbt5);
 				
 				NBTByte nbt6 = nbt5.get("loaded");
 				
@@ -97,17 +178,14 @@ public class TeamData {
 					
 					System.out.println(nbt6);
 					nbt6.setPayload((byte) 0);
-					nbt5.add(nbt6);
+					nbt4.add(nbt6);
 					
 				}
 				
-				nbt3.add(nbt5);
 				
 			}
 			
-			
-			
-		}
+		*/	
 		
 		//System.out.println(nbt);
 		
@@ -117,6 +195,4 @@ public class TeamData {
 		//System.out.println(nbt);
 		
 		//new NBTCompound("", new NBTCompound("Data", fileNbt.get("Data")).get(""));		
-	}
 
-}
