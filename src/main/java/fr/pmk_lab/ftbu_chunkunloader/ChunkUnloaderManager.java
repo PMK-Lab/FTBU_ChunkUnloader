@@ -1,6 +1,7 @@
 package fr.pmk_lab.ftbu_chunkunloader;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -96,14 +97,19 @@ public class ChunkUnloaderManager {
 		for (TeamData teamData : teamList) {
 			
 			long time = ChunkUnloaderManager.getWorldTime() - teamData.getOwner().getLastTimeSeen();
-			System.out.println(time);
+			System.out.print("Team : " + teamData.getTeamName() + "   " + time);
 			
 			if(time > 144000) {
 				
 				//unload
-				System.out.println("unload");
+				System.out.println("\t to unload");
 				
-				teamData.unloadChunks();
+				try {
+					teamData.unloadChunks();
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 				
 			}
