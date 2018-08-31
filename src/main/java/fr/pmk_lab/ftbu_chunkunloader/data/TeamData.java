@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ListIterator;
 
-import javax.swing.text.html.HTMLDocument.Iterator;
-
 import com.kovuthehusky.nbt.NBTWriter;
 import com.kovuthehusky.nbt.tags.NBT;
 import com.kovuthehusky.nbt.tags.NBTByte;
